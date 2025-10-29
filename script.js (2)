@@ -1,0 +1,69 @@
+const surahList = document.getElementById("surah-list");
+const surahContainer = document.getElementById("surah-container");
+const ayatList = document.getElementById("ayat-list");
+const surahTitle = document.getElementById("surah-title");
+const backBtn = document.getElementById("back-btn");
+const toggleThemeBtn = document.getElementById("toggle-theme");
+
+// 🌗 Ganti Mode Gelap/Terang
+toggleThemeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  toggleThemeBtn.textContent = document.body.classList.contains("dark")
+    ? "☀️ Mode Terang"
+    : "🌗 Mode Gelap";
+});
+
+// 🕌 Ambil daftar surah
+fetch("https://equran.id/api/v2/surat")
+  .then(res => res.json())
+  .then(data => {
+    surahList.innerHTML = "";
+    data.data.forEach(surah => {
+      const div = document.createElement("div");
+      div.className = "surah-card";
+      div.innerHTML = `
+        <h3>${surah.nomor}. ${surah.namaLatin}</h3>
+        <p>${surah.arti}</p>
+        <small>${surah.jumlahAyat} Ayat</small>
+      `;
+      div.addEventListener("click", () => showSurah(surah.nomor, surah.namaLatin));
+      surahList.appendChild(div);
+    });
+  })
+  .catch(() => {
+    surahList.innerHTML = "<p>Gagal memuat daftar surah 😢</p>";
+  });
+
+// 📖 Tampilkan isi surah saat diklik
+function showSurah(nomor, namaLatin) {
+  surahList.classList.add("hidden");
+  surahContainer.classList.remove("hidden");
+  surahTitle.textContent = `Surah ${namaLatin}`;
+  ayatList.innerHTML = "<p>Memuat ayat...</p>";
+
+  fetch(`https://equran.id/api/v2/surat/${nomor}`)
+    .then(res => res.json())
+    .then(data => {
+      ayatList.innerHTML = "";
+      data.data.ayat.forEach(ayat => {
+        const div = document.createElement("div");
+        div.className = "ayat";
+        div.innerHTML = `
+          <div class="arabic">${ayat.teksArab}</div>
+          <div class="latin">${ayat.teksLatin}</div>
+          <div class="translation">(${ayat.nomorAyat}) ${ayat.teksIndonesia}</div>
+          <audio controls src="${ayat.audio?.[0] || ''}" class="audio"></audio>
+        `;
+        ayatList.appendChild(div);
+      });
+    })
+    .catch(() => {
+      ayatList.innerHTML = "<p>Gagal memuat ayat 😢</p>";
+    });
+}
+
+// 🔙 Tombol kembali
+backBtn.addEventListener("click", () => {
+  surahContainer.classList.add("hidden");
+  surahList.classList.remove("hidden");
+});

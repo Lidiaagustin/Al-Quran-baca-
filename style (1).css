@@ -1,0 +1,141 @@
+:root {
+  --bg: #faf8ff;
+  --text: #3d2c54;
+  --accent: #a88ed9;
+  --card: #ffffff;
+}
+
+/* 🌗 Mode Gelap */
+body.dark {
+  --bg: #1d1b27;
+  --text: #f5f5f5;
+  --accent: #b999f7;
+  --card: #2d2a3a;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  transition: all 0.4s ease;
+}
+
+/* Header */
+header {
+  text-align: center;
+  background: linear-gradient(120deg, var(--accent), #c8b6ff);
+  color: white;
+  padding: 25px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+#toggle-theme {
+  background: white;
+  color: var(--accent);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#toggle-theme:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Daftar Surah */
+.surah-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.surah-card {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.surah-card:hover {
+  transform: translateY(-4px);
+  background: #f4ecff;
+}
+
+.surah-card h3 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.surah-card p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Ayat Detail */
+.hidden {
+  display: none;
+}
+
+.surah-container {
+  padding: 20px;
+  text-align: center;
+}
+
+#back-btn {
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.ayat {
+  background: var(--card);
+  border-radius: 15px;
+  margin: 15px auto;
+  padding: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  max-width: 750px;
+  text-align: right;
+}
+
+.arabic {
+  font-family: "Scheherazade", serif;
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.latin {
+  text-align: left;
+  color: #7a5fa0;
+  font-style: italic;
+}
+
+.translation {
+  text-align: left;
+  font-size: 15px;
+  margin-top: 5px;
+  color: var(--text);
+}
+
+/* Footer */
+footer {
+  background: var(--accent);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 20px 20px 0 0;
+  margin-top: 25px;
+}
